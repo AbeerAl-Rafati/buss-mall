@@ -61,8 +61,8 @@ function randomImg() {
 
 
   twoIndex = randomNumber(0, Products.all.length - 1);
-  if (oneIndex === twoIndex) {
-    twoIndex = randomNumber(0, Products.all.length - 1);
+  if (oneIndex !== twoIndex) {
+    
     imgTwo.src = Products.all[twoIndex].path;
     imgTwo.alt = Products.all[twoIndex].name;
     imgTwo.title = Products.all[twoIndex].name;
@@ -70,6 +70,7 @@ function randomImg() {
 
   }
   else {
+    twoIndex = randomNumber(0, Products.all.length - 1);
     imgTwo.src = Products.all[twoIndex].path;
     imgTwo.alt = Products.all[twoIndex].name;
     imgTwo.title = Products.all[twoIndex].name;
@@ -77,13 +78,14 @@ function randomImg() {
   }
 
   threeIndex = randomNumber(0, Products.all.length - 1);
-  if (threeIndex === twoIndex && threeIndex === oneIndex) {
-    threeIndex = randomNumber(0, Products.all.length - 1);
+  if (threeIndex !== twoIndex && threeIndex !== oneIndex) {
+    
     imgThree.src = Products.all[threeIndex].path;
     imgThree.alt = Products.all[threeIndex].name;
     imgThree.title = Products.all[threeIndex].name;
   }
   else {
+    threeIndex = randomNumber(0, Products.all.length - 1);
     imgThree.src = Products.all[threeIndex].path;
     imgThree.alt = Products.all[threeIndex].name;
     imgThree.title = Products.all[threeIndex].name;
