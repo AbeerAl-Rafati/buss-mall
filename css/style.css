@@ -1,0 +1,80 @@
+
+
+
+header , footer{
+background-image: url('../img/download.jpg');
+opacity: 60%;
+height: 140px;
+text-align: center;
+
+}
+
+
+h1 {
+    font-size: xx-large;
+    top: 30px;
+    position: relative;
+    font-weight: bolder;
+    color: rgb(238, 238, 245);
+}
+
+h2{
+    font-size: xx-large;
+    top: 50px;
+    position: relative;
+    font-weight: bolder;
+    color: rgb(238, 238, 245);
+
+}
+
+
+#container{
+    max-width: 90%;
+    margin: 100px auto;
+    text-align: center;
+}
+
+
+
+
+#containerTwo{
+    max-width: 90%;
+    text-align: center;
+    max-height: 400px ;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #00000057;
+    box-shadow: 3px 3px 6px #0000006b;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+
+
+
+button{
+
+    width: 150px;
+    height: 50px;
+    background-color: rgb(134, 134, 204);
+    margin-left: 135px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #dfd9d96b;
+    border-color: cornflowerblue;
+    margin-bottom: 20px;
+}
+
+
+
+table ,tr, th, td{
+    border: 0.5px solid rgb(255, 99, 132);
+    color:  rgb(96, 96, 139);;
+}
+
+table{
+    margin-left: 130px;
+    margin-bottom: 20px;
+}
