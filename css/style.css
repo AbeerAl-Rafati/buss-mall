@@ -70,7 +70,8 @@ button{
 
 
 table ,tr, th, td{
-    border:solid rgb(96, 96, 139);
+    border:solid rgb(255, 99, 132);
+    color:  rgb(96, 96, 139);;
 }
 
 table{

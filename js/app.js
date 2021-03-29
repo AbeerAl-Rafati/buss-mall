@@ -28,6 +28,9 @@ let threeIndex;
 let maxClickCount = 24;
 let clickCount = 0;
 
+
+let viewsArr = [];
+let votesArr = [];
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -50,6 +53,11 @@ for (let i = 0; i < names.length; i++) {
 
 
 
+
+
+
+
+
 function randomImg() {
 
   oneIndex = randomNumber(0, Products.all.length - 1);
@@ -57,17 +65,15 @@ function randomImg() {
   imgOne.src = Products.all[oneIndex].path;
   imgOne.alt = Products.all[oneIndex].name;
   imgOne.title = Products.all[oneIndex].name;
-
-
+  Products.all[oneIndex].views++;
 
   twoIndex = randomNumber(0, Products.all.length - 1);
-  if (oneIndex !== twoIndex) {
-    
+  if (twoIndex !== oneIndex) {
+
     imgTwo.src = Products.all[twoIndex].path;
     imgTwo.alt = Products.all[twoIndex].name;
     imgTwo.title = Products.all[twoIndex].name;
-    Products.all[oneIndex].views++;
-
+    Products.all[twoIndex].views++;
   }
   else {
     twoIndex = randomNumber(0, Products.all.length - 1);
@@ -79,10 +85,11 @@ function randomImg() {
 
   threeIndex = randomNumber(0, Products.all.length - 1);
   if (threeIndex !== twoIndex && threeIndex !== oneIndex) {
-    
+
     imgThree.src = Products.all[threeIndex].path;
     imgThree.alt = Products.all[threeIndex].name;
     imgThree.title = Products.all[threeIndex].name;
+    Products.all[threeIndex].views++;
   }
   else {
     threeIndex = randomNumber(0, Products.all.length - 1);
@@ -101,29 +108,10 @@ container.addEventListener('click', imgClick);
 
 function imgClick(event) {
 
-  // event.preventDefult();
 
   if (event.target.id !== 'container') {
 
 
-    // while(clickCount < maxClickCount){
-    //   clickCount++;
-
-    //   if (event.target.id === imgOne.id) {
-    //     Products.all[oneIndex].votes++;
-
-    //   }
-    //   else if (event.target.id === imgTwo.id) {
-    //     Products.all[twoIndex].votes++;
-
-    //   }
-    //   else {
-
-    //     Products.all[threeIndex].votes++;
-
-    //   }
-
-    // }
     if (clickCount < maxClickCount) {
       clickCount++;
 
@@ -193,9 +181,11 @@ function buttonClick() {
   dataCells.textContent = 'views';
 
   for (let i = 0; i < names.length; i++) {
+    viewsArr.push(Products.all[i].views);
     let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].views;
+
 
   }
 
@@ -209,11 +199,71 @@ function buttonClick() {
   dataCells.textContent = 'votes';
 
   for (let i = 0; i < names.length; i++) {
+    votesArr.push(Products.all[i].votes);
     let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].votes;
 
   }
+
+  barChart();
+  // bubbleChart();
+}
+
+function barChart (){
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let chart = new Chart(ctx, {
+  // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+      labels: names,
+      datasets: [{
+        label: 'votes',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: votesArr,
+      },
+      {
+        label: 'views',
+        backgroundColor: 'rgb(135, 99, 255)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: viewsArr,
+      }]
+    },
+
+    // Configuration options go here
+    options: {}
+  });
 }
 
 
+
+// function bubbleChart (){
+//   let ctx = document.getElementById('myChart').getContext('2d');
+//   let charttwo = new Chart(ctx, {
+//   // The type of chart we want to create
+//     type: 'bubble',
+
+//     // The data for our dataset
+//     data: {
+//       labels: names,
+//       datasets: [{
+//         label: 'Product Results',
+//         backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30, 45]
+//       },
+//       {
+//         label: 'Product Results',
+//         backgroundColor: 'rgb(135, 99, 255)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30, 45]
+//       }]
+//     },
+
+//     // Configuration options go here
+//     options: {}
+//   });
+// }
