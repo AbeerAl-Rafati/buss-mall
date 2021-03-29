@@ -2,7 +2,7 @@
 
 
 const names = [
-  'bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass',
+  'bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass',
 ];
 
 // console.log(products);
@@ -13,27 +13,29 @@ function randomNumber(min, max) {
 
 
 let container = document.getElementById('container');
-let containerTwo =document.getElementById('containerTwo');
+let containerTwo = document.getElementById('containerTwo');
 let imgOne = document.getElementById('img-One');
 let imgTwo = document.getElementById('img-Two');
 let imgThree = document.getElementById('img-Three');
+
+const buttonEl = document.createElement('button');
 
 let oneIndex;
 let twoIndex;
 let threeIndex;
 
 
-
-let clickCount=0;
+let maxClickCount = 24;
+let clickCount = 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function Products(name){
+function Products(name) {
   this.name = name;
   this.path = `./img/${name}.jpg`;
   this.votes = 0;
-  this.views =0;
+  this.views = 0;
   Products.all.push(this);
 }
 
@@ -42,15 +44,15 @@ Products.all = [];
 
 
 
-for(let i=0; i<names.length;i++){
+for (let i = 0; i < names.length; i++) {
   new Products(names[i]);
 }
 
 
 
-function randomImg(){
+function randomImg() {
 
-  oneIndex = randomNumber(0,Products.all.length-1);
+  oneIndex = randomNumber(0, Products.all.length - 1);
 
   imgOne.src = Products.all[oneIndex].path;
   imgOne.alt = Products.all[oneIndex].name;
@@ -58,163 +60,158 @@ function randomImg(){
 
 
 
-  twoIndex = randomNumber(0,Products.all.length-1);
-  if(oneIndex === twoIndex){
-    twoIndex = randomNumber(0,Products.all.length-1);
+  twoIndex = randomNumber(0, Products.all.length - 1);
+  if (oneIndex === twoIndex) {
+    twoIndex = randomNumber(0, Products.all.length - 1);
     imgTwo.src = Products.all[twoIndex].path;
     imgTwo.alt = Products.all[twoIndex].name;
     imgTwo.title = Products.all[twoIndex].name;
+    Products.all[oneIndex].views++;
 
   }
-  else{
+  else {
     imgTwo.src = Products.all[twoIndex].path;
     imgTwo.alt = Products.all[twoIndex].name;
     imgTwo.title = Products.all[twoIndex].name;
+    Products.all[twoIndex].views++;
   }
 
-  threeIndex = randomNumber(0,Products.all.length-1);
-  if (threeIndex === twoIndex && threeIndex === oneIndex){
-    threeIndex = randomNumber(0,Products.all.length-1);
+  threeIndex = randomNumber(0, Products.all.length - 1);
+  if (threeIndex === twoIndex && threeIndex === oneIndex) {
+    threeIndex = randomNumber(0, Products.all.length - 1);
     imgThree.src = Products.all[threeIndex].path;
     imgThree.alt = Products.all[threeIndex].name;
     imgThree.title = Products.all[threeIndex].name;
   }
-  else{
+  else {
     imgThree.src = Products.all[threeIndex].path;
     imgThree.alt = Products.all[threeIndex].name;
     imgThree.title = Products.all[threeIndex].name;
+    Products.all[threeIndex].views++;
   }
 
 }
-
 
 randomImg();
 
 
-
-
-// if(clickCount === 3){
-//   const buttonEl = document.createElement('button');
-//   containerTwo.appendChild(buttonEl);
-// }
-
-
-
-
 container.addEventListener('click', imgClick);
 
-function imgClick(event){
+function imgClick(event) {
 
-  if(event.target.id !== 'container')
-  {
+  // event.preventDefult();
+
+  if (event.target.id !== 'container') {
 
 
-    if(event.target.id === imgOne.id)
-    {
-      Products.all[oneIndex].votes++;
-      Products.all[oneIndex].views++;
-      Products.all[twoIndex].views++;
-      Products.all[threeIndex].views++;
+    // while(clickCount < maxClickCount){
+    //   clickCount++;
+
+    //   if (event.target.id === imgOne.id) {
+    //     Products.all[oneIndex].votes++;
+
+    //   }
+    //   else if (event.target.id === imgTwo.id) {
+    //     Products.all[twoIndex].votes++;
+
+    //   }
+    //   else {
+
+    //     Products.all[threeIndex].votes++;
+
+    //   }
+
+    // }
+    if (clickCount < maxClickCount) {
       clickCount++;
 
-    }
-    else if(event.target.id === imgTwo.id){
-      Products.all[twoIndex].votes++;
-      Products.all[oneIndex].views++;
-      Products.all[twoIndex].views++;
-      Products.all[threeIndex].views++;
-      clickCount++;
-    }
-    else{
-      Products.all[threeIndex].votes++;
-      Products.all[oneIndex].views++;
-      Products.all[twoIndex].views++;
-      Products.all[threeIndex].views++;
-      clickCount++;
+      if (event.target.id === imgOne.id) {
+        Products.all[oneIndex].votes++;
+
+      }
+      else if (event.target.id === imgTwo.id) {
+        Products.all[twoIndex].votes++;
+
+      }
+      else {
+
+        Products.all[threeIndex].votes++;
+
+      }
     }
 
+
+
+    else {
+      containerTwo.appendChild(buttonEl);
+
+      container.removeEventListener('click', imgClick);
+    }
   }
-
-
-
   randomImg();
 
-
-  if (clickCount === 3){
-    buttonClick();
-  }
 }
 
 
 
-imgClick();
 
-
-
-const buttonEl = document.createElement('button');
-containerTwo.appendChild(buttonEl);
-
-
+//////////////////////////////////////////////////
 
 buttonEl.addEventListener('click', buttonClick);
 
 
 
 
-const tableEl=document.createElement('table');
-containerTwo.appendChild(tableEl);
+function buttonClick() {
 
+  const tableEl = document.createElement('table');
+  containerTwo.appendChild(tableEl);
 
-function buttonClick(event){
-
-  let dataRaw=document.createElement('tr');
+  let dataRaw = document.createElement('tr');
   tableEl.appendChild(dataRaw);
 
 
-  let dataCells=document.createElement('td');
+  let dataCells = document.createElement('td');
   dataRaw.appendChild(dataCells);
   dataCells.textContent = 'name';
 
-  for (let i=0; i< names.length; i++)
-  {
-    let dataCells=document.createElement('td');
+  for (let i = 0; i < names.length; i++) {
+    let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].name;
 
   }
   /////////////////
-  dataRaw=document.createElement('tr');
+  dataRaw = document.createElement('tr');
   tableEl.appendChild(dataRaw);
 
 
-  dataCells=document.createElement('td');
+  dataCells = document.createElement('td');
   dataRaw.appendChild(dataCells);
   dataCells.textContent = 'views';
 
-  for (let i=0; i< names.length; i++)
-  {
-    let dataCells=document.createElement('td');
+  for (let i = 0; i < names.length; i++) {
+    let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].views;
 
   }
 
   ///////////////////
-  dataRaw=document.createElement('tr');
+  dataRaw = document.createElement('tr');
   tableEl.appendChild(dataRaw);
 
 
-  dataCells=document.createElement('td');
+  dataCells = document.createElement('td');
   dataRaw.appendChild(dataCells);
   dataCells.textContent = 'votes';
 
-  for (let i=0; i< names.length; i++)
-  {
-    let dataCells=document.createElement('td');
+  for (let i = 0; i < names.length; i++) {
+    let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].votes;
 
   }
 }
 
-buttonClick();
+
