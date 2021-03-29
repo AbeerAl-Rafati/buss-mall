@@ -53,11 +53,6 @@ for (let i = 0; i < names.length; i++) {
 
 
 
-
-
-
-
-
 function randomImg() {
 
   oneIndex = randomNumber(0, Products.all.length - 1);
@@ -98,6 +93,11 @@ function randomImg() {
     imgThree.title = Products.all[threeIndex].name;
     Products.all[threeIndex].views++;
   }
+
+  oneIndex = oneIndex + 1;
+  twoIndex = twoIndex +1;
+  threeIndex = threeIndex +1;
+
 
 }
 
