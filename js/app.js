@@ -93,8 +93,8 @@ function randomImg() {
     imgThree.title = Products.all[threeIndex].name;
     Products.all[threeIndex].views++;
   }
-
-  oneIndex = oneIndex + 1;
+  //to prevent each repet twice
+  oneIndex = oneIndex +1;
   twoIndex = twoIndex +1;
   threeIndex = threeIndex +1;
 
