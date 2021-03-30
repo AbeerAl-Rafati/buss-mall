@@ -33,7 +33,6 @@ let viewsArr = [];
 let votesArr = [];
 
 
-let shownProducts =[];
 
 
 
@@ -53,10 +52,16 @@ function Products(name) {
 
 Products.all = [];
 
+/////////////////////////
 
 
 
 
+
+
+
+
+////////////////////////////////
 
 for (let i = 0; i < names.length; i++) {
   new Products(names[i]);
@@ -66,56 +71,49 @@ for (let i = 0; i < names.length; i++) {
 
 function randomImg() {
 
-  const oneRandom = randomNumber(0, Products.all.length - 1);
-  const twoRandom = randomNumber(0, Products.all.length - 1);
-  const threeRandom = randomNumber(0, Products.all.length - 1);
+  oneIndex = randomNumber(0, Products.all.length - 1);
 
-  oneIndex =oneRandom;
-  twoIndex= twoRandom;
-  threeIndex= threeRandom;
+  imgOne.src = Products.all[oneIndex].path;
+  imgOne.alt = Products.all[oneIndex].name;
+  imgOne.title = Products.all[oneIndex].name;
+  Products.all[oneIndex].views++;
 
-  if (oneIndex === twoIndex || oneIndex === threeIndex || twoIndex === threeIndex){
+  twoIndex = randomNumber(0, Products.all.length - 1);
+  if (twoIndex !== oneIndex) {
 
-    randomImg();
+    imgTwo.src = Products.all[twoIndex].path;
+    imgTwo.alt = Products.all[twoIndex].name;
+    imgTwo.title = Products.all[twoIndex].name;
+    Products.all[twoIndex].views++;
   }
-  else{
-
-    if (shownProducts.includes(oneRandom) || shownProducts.includes(twoRandom) || shownProducts.includes(threeRandom))
-    {
-      randomImg();
-    }
-    else{
-      shownProducts =[];
-
-      shownProducts.push(oneRandom);
-      shownProducts.push(twoRandom);
-      shownProducts.push(threeRandom);
-
-
-      Products.all[twoIndex].views++;
-      Products.all[twoIndex].views++;
-      Products.all[threeIndex].views++;
-
-
-
-      imgOne.src = Products.all[oneIndex].path;
-      imgOne.alt = Products.all[oneIndex].name;
-      imgOne.title = Products.all[oneIndex].name;
-
-
-
-
-      imgTwo.src = Products.all[twoIndex].path;
-      imgTwo.alt = Products.all[twoIndex].name;
-      imgTwo.title = Products.all[twoIndex].name;
-
-
-
-      imgThree.src = Products.all[threeIndex].path;
-      imgThree.alt = Products.all[threeIndex].name;
-      imgThree.title = Products.all[threeIndex].name;
-    }
+  else {
+    twoIndex = randomNumber(0, Products.all.length - 1);
+    imgTwo.src = Products.all[twoIndex].path;
+    imgTwo.alt = Products.all[twoIndex].name;
+    imgTwo.title = Products.all[twoIndex].name;
+    Products.all[twoIndex].views++;
   }
+
+  threeIndex = randomNumber(0, Products.all.length - 1);
+  if (threeIndex !== twoIndex && threeIndex !== oneIndex) {
+
+    imgThree.src = Products.all[threeIndex].path;
+    imgThree.alt = Products.all[threeIndex].name;
+    imgThree.title = Products.all[threeIndex].name;
+    Products.all[threeIndex].views++;
+  }
+  else {
+    threeIndex = randomNumber(0, Products.all.length - 1);
+    imgThree.src = Products.all[threeIndex].path;
+    imgThree.alt = Products.all[threeIndex].name;
+    imgThree.title = Products.all[threeIndex].name;
+    Products.all[threeIndex].views++;
+  }
+  //to prevent each repet twice
+  oneIndex = oneIndex +1;
+  twoIndex = twoIndex +1;
+  threeIndex = threeIndex +1;
+
 
 }
 
