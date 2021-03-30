@@ -31,6 +31,12 @@ let clickCount = 0;
 
 let viewsArr = [];
 let votesArr = [];
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -40,12 +46,22 @@ function Products(name) {
   this.votes = 0;
   this.views = 0;
   Products.all.push(this);
+
 }
 
 
 Products.all = [];
 
+/////////////////////////
 
+
+
+
+
+
+
+
+////////////////////////////////
 
 for (let i = 0; i < names.length; i++) {
   new Products(names[i]);
@@ -104,6 +120,14 @@ function randomImg() {
 randomImg();
 
 
+
+
+
+
+
+
+
+
 container.addEventListener('click', imgClick);
 
 function imgClick(event) {
@@ -145,6 +169,24 @@ function imgClick(event) {
 
 
 
+
+function storageSitting(){
+  let savedProduct=JSON.stringify(Products.all);
+  localStorage.setItem('Products', savedProduct);
+
+}
+
+
+function storageGetting(){
+  let gettenProduct=localStorage.getItem('Products');
+  let normalGettenProduct=JSON.parse(gettenProduct);
+  Products.all = normalGettenProduct;
+  randomImg();
+}
+
+
+
+
 //////////////////////////////////////////////////
 
 buttonEl.addEventListener('click', buttonClick);
@@ -153,6 +195,11 @@ buttonEl.addEventListener('click', buttonClick);
 
 
 function buttonClick() {
+
+
+
+  storageSitting();
+
 
   const tableEl = document.createElement('table');
   containerTwo.appendChild(tableEl);
@@ -200,6 +247,10 @@ function buttonClick() {
 
   for (let i = 0; i < names.length; i++) {
     votesArr.push(Products.all[i].votes);
+
+    // let savedResults=JSON.stringify(votesArr.push(Products.all[i].votes));
+    // localStorage.setItem('results', savedResults);
+
     let dataCells = document.createElement('td');
     dataRaw.appendChild(dataCells);
     dataCells.textContent = Products.all[i].votes;
@@ -207,8 +258,13 @@ function buttonClick() {
   }
 
   barChart();
-  // bubbleChart();
+
 }
+
+
+
+
+
 
 function barChart (){
   let ctx = document.getElementById('myChart').getContext('2d');
@@ -238,32 +294,13 @@ function barChart (){
   });
 }
 
+///////////////////////////////////////////////////////////////////
 
 
-// function bubbleChart (){
-//   let ctx = document.getElementById('myChart').getContext('2d');
-//   let charttwo = new Chart(ctx, {
-//   // The type of chart we want to create
-//     type: 'bubble',
 
-//     // The data for our dataset
-//     data: {
-//       labels: names,
-//       datasets: [{
-//         label: 'Product Results',
-//         backgroundColor: 'rgb(255, 99, 132)',
-//         borderColor: 'rgb(255, 99, 132)',
-//         data: [0, 10, 5, 2, 20, 30, 45]
-//       },
-//       {
-//         label: 'Product Results',
-//         backgroundColor: 'rgb(135, 99, 255)',
-//         borderColor: 'rgb(255, 99, 132)',
-//         data: [0, 10, 5, 2, 20, 30, 45]
-//       }]
-//     },
 
-//     // Configuration options go here
-//     options: {}
-//   });
-// }
+storageGetting();
+
+
+
+
