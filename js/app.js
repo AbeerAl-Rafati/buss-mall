@@ -142,6 +142,7 @@ function imgClick(event) {
       if (event.target.id === imgOne.id) {
         Products.all[oneIndex].votes++;
 
+
       }
       else if (event.target.id === imgTwo.id) {
         Products.all[twoIndex].votes++;
@@ -150,6 +151,7 @@ function imgClick(event) {
       else {
 
         Products.all[threeIndex].votes++;
+
 
       }
     }
